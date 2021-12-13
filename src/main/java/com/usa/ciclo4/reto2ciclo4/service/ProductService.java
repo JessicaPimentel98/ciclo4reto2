@@ -17,56 +17,50 @@ public class ProductService {
         return productRepository.getAll();
     }
 
-    public Optional<Product> getProduct(int id){
-        return productRepository.getProduct(id);
+    public Optional<Product> getProduct(String reference) {
+        return productRepository.getProduct(reference);
     }
 
     public Product save(Product product){
-        if (product.getId()== null){
+         if (product.getReference() == null) {
             return product;
+        } else {
+            return productRepository.save(product);
         }
-        return productRepository.save(product);
     }
-    public Optional<Product> getClothe(int id) {
-        return productRepository.getClothe(id);
-    }
+    
+   public Product update(Product product) {
 
-    public Product update(Product product){
-        if (product.getId()!= null){
-            Optional<Product> dbProduct = productRepository.getProduct(product.getId());
-            if (!dbProduct.isEmpty()){
-                if (product.getBrand()!= null){
-                    dbProduct.get().setBrand(product.getBrand());
-                }
-                if (product.getProcesor()!= null){
-                    dbProduct.get().setProcesor(product.getProcesor());
-                }
-                if (product.getOs()!= null){
-                    dbProduct.get().setOs(product.getOs());
-                }
-                if (product.getDescription() != null){
-                    dbProduct.get().setDescription(product.getDescription());
-                }
-                if (product.getMemory()!= null){
-                    dbProduct.get().setMemory(product.getMemory());
-                }
-                if (product.getHardDrive()!= null){
-                    dbProduct.get().setHardDrive(product.getHardDrive());
+        if (product.getReference() != null) {
+            Optional<Product> accesoryDb = productRepository.getProduct(product.getReference());
+            if (!accesoryDb.isEmpty()) {
+                if (product.getBrand() != null) {
+                    accesoryDb.get().setBrand(product.getBrand());
                 }
 
-                dbProduct.get().setAvailability(product.isAvailability());
+                if (product.getCategory() != null) {
+                    accesoryDb.get().setCategory(product.getCategory());
+                }
 
-                if (product.getPrice()!= 0.0){
-                    dbProduct.get().setPrice(product.getPrice());
+                if (product.getMaterial() != null) {
+                    accesoryDb.get().setMaterial(product.getMaterial());
                 }
-                if (product.getQuantity()!= 0){
-                    dbProduct.get().setQuantity(product.getQuantity());
+
+                if (product.getDescription() != null) {
+                    accesoryDb.get().setDescription(product.getDescription());
                 }
-                if (product.getPhotography()!= null){
-                    dbProduct.get().setPhotography(product.getPhotography());
+                if (product.getPrice() != 0.0) {
+                    accesoryDb.get().setPrice(product.getPrice());
                 }
-                productRepository.update(dbProduct.get());
-                return dbProduct.get();
+                if (product.getQuantity() != 0) {
+                    accesoryDb.get().setQuantity(product.getQuantity());
+                }
+                if (product.getPhotography() != null) {
+                    accesoryDb.get().setPhotography(product.getPhotography());
+                }
+                accesoryDb.get().setAvailability(product.isAvailability());
+                productRepository.update(accesoryDb.get());
+                return accesoryDb.get();
             } else {
                 return product;
             }
@@ -75,10 +69,11 @@ public class ProductService {
         }
     }
 
-    public boolean delete(int id){
-        return getProduct(id).map(product -> {
-            productRepository.delete(product);
+     public boolean delete(String reference) {
+        Boolean aBoolean = getProduct(reference).map(accesory -> {
+            productRepository.delete(accesory);
             return true;
         }).orElse(false);
+        return aBoolean;
     }
 }

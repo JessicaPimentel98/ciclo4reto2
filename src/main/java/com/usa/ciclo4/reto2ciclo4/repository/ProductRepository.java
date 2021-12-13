@@ -14,14 +14,12 @@ public class ProductRepository {
     private ProductCrudRepository productCrudRepository;
 
     public List<Product> getAll(){
-        return (List<Product>) productCrudRepository.findAll();
+         return productCrudRepository.findAll();
     }
-    public Optional<Product> getProduct(int id){
-        return productCrudRepository.findById(id);
+     public Optional<Product> getProduct(String reference) {
+        return productCrudRepository.findById(reference);
     }
-    public Optional<Product> getClothe(int id) {
-        return productCrudRepository.findById(id);
-    }
+    
     public Product save(Product product){
         return productCrudRepository.save(product);
     }

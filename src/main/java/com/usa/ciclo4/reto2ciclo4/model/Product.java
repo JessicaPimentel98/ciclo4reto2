@@ -12,16 +12,15 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "products")
 public class Product {
     @Id
-    private Integer id;
+    private String reference;
     private String brand;
-    private String procesor;
-    private String os;
+    private String category;
+    private String material;
+    private String presentacion;
     private String description;
-    private String memory;
-    private String hardDrive;
     private boolean availability = true;
     private double price;
-    private Integer quantity;
+    private int quantity;
     private String photography;
 
 }

@@ -11,10 +11,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cleaningproduct")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
+//@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ProductController {
     @Autowired
     private ProductService productService;
+    
     @GetMapping("/all")
     public List<Product> getAll(){
         return productService.getAll();
@@ -31,11 +32,15 @@ public class ProductController {
     public Product update(@RequestBody Product user){
         return productService.update(user);
     }
-
-    @DeleteMapping("{id}")
+    @GetMapping("/{reference}")
+    public Optional<Product> getProduct(@PathVariable("reference") String reference) {
+        return productService.getProduct(reference);
+    }
+    
+    @DeleteMapping("/{reference}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public boolean delete(@PathVariable("id") int id){
-        return productService.delete(id);
+    public boolean delete(@PathVariable("reference") String reference) {
+        return productService.delete(reference);
     }
 
     
