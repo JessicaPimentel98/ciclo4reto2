@@ -14,22 +14,22 @@ public class ProductRepository {
     private ProductCrudRepository productCrudRepository;
 
     public List<Product> getAll(){
-        return productCrudRepository.findAll();
+        return (List<Product>) productCrudRepository.findAll();
     }
-
     public Optional<Product> getProduct(int id){
         return productCrudRepository.findById(id);
     }
-
+    public Optional<Product> getClothe(int id) {
+        return productCrudRepository.findById(id);
+    }
     public Product save(Product product){
         return productCrudRepository.save(product);
     }
-
     public void update(Product product){
         productCrudRepository.save(product);
     }
-
     public void delete(Product product){
         productCrudRepository.delete(product);
     }
+    
 }

@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/clone")
+@RequestMapping("/api/cleaningproduct")
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ProductController {
     @Autowired
     private ProductService productService;
-
     @GetMapping("/all")
     public List<Product> getAll(){
         return productService.getAll();
@@ -22,19 +22,22 @@ public class ProductController {
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public void save(@RequestBody Product product){
-        productService.save(product);
+    public void save(@RequestBody Product producto){
+        productService.save(producto);
     }
 
     @PutMapping("/update")
     @ResponseStatus(HttpStatus.CREATED)
-    public Product update(@RequestBody Product product){
-        return productService.update(product);
+    public Product update(@RequestBody Product user){
+        return productService.update(user);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("id") int id){
         return productService.delete(id);
     }
+
+    
+    
 }

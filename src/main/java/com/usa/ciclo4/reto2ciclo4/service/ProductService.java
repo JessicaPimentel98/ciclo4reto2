@@ -27,6 +27,9 @@ public class ProductService {
         }
         return productRepository.save(product);
     }
+    public Optional<Product> getClothe(int id) {
+        return productRepository.getClothe(id);
+    }
 
     public Product update(Product product){
         if (product.getId()!= null){
